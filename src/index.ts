@@ -18,8 +18,8 @@ const CharacterFormatMap: {[key: string]: CharacterFormat} = {
     ],
   },
   '1': {
-    padding: 19.608,
-    width: 20,
+    padding: 0.536,
+    width: 19.072,
     formatString:
       " M  {}  47  V  15.704  C  {}  6.104  {}  0.471996  {}  0.471996  H  {}  V  8.6  H  {}  C  {}  8.6  {}  11.096  {}  15.704  V  47  H  {}  Z ",
     formatValues: [
@@ -27,8 +27,8 @@ const CharacterFormatMap: {[key: string]: CharacterFormat} = {
     ],
   },
   '2': {
-    padding: 44.704,
-    width: 46,
+    padding: 0.32,
+    width: 45.44,
     formatString:
       " M  {}  47  V  38.872  H  {}  V  32.792  C  {}  28.824  {}  26.776  {}  26.776  H  {}  C  {}  26.776  {}  21.208  {}  13.528  C  {}  6.04  {}  0.471996  {}  0.471996  H  {}  V  8.6  H  {}  C  {}  8.6  {}  10.776  {}  14.296  C  {}  17.816  {}  19.928  {}  19.928  H  {}  C  {}  19.928  {}  24.344  {}  33.368  V  47  H  {}  Z ",
     formatValues: [
@@ -169,16 +169,18 @@ function format(
 function expressionToSVG(expression: string): string {
   let path: string = "";
   let offset: number = 0;
+  let width: number = 0;
   for (let char of expression) {
     const element: CharacterFormat | undefined = CharacterFormatMap[char];
     if (!element) throw "Invalid character";
     path += format(element.formatString, element.formatValues, (x) => x + offset);
-    offset += element.padding * 2 + element.width;
+    console.log(offset)
+    offset += element.width + element.padding * 2 + 4
   }
 
   return `<svg width="100%" viewBox="0 0 ${offset} 49" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="${path}" fill="black"/></svg>`;
 }
 
-console.log(expressionToSVG('1 + 2 = 0'));
+console.log(expressionToSVG('21'));
 
 export default expressionToSVG;
