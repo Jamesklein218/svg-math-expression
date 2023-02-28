@@ -196,7 +196,7 @@ function format(
   });
 }
 
-function expressionToSVG(expression: string): string {
+function expressionToSVG(expression: string, color: string = 'black'): string {
   let path: string = "";
   let offset: number = 0;
   let width: number = 0;
@@ -212,7 +212,9 @@ function expressionToSVG(expression: string): string {
     offset += element.width + element.padding * 2;
   }
 
-  return `<svg width="100%" viewBox="0 0 ${offset} 81" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="${path}" fill="black"/></svg>`;
+  return `<svg height="100%" viewBox="0 0 ${offset} 81" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="${path}" fill="${color}"/></svg>`;
 }
+
+console.log(expressionToSVG('-99 + -99 = -99'));
 
 export default expressionToSVG;
